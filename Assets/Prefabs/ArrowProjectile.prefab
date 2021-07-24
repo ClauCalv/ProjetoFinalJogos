@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87dc83dd8983754eb3ab4fe32f5f7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 1
+  projectileSpeed: 3
   maxDistance: 12
   destination: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 0}

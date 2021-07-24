@@ -93,7 +93,7 @@ public class MapController : MonoBehaviour
 
                     //TODO
                     //Texture texture = findResource<Texture>(tileType.ResourceFolder + variety.ResourceName, false);
-                    Texture texture = findResource<Texture>(tileType.ResourceFolder + "BASE_ROAD", false);
+                    Texture texture = findResource<Texture>(tileType.ResourceFolder + "BASE_ROAD_TODO", false);
                     Renderer renderer = road.GetComponent<Renderer>();
                     renderer.material.mainTexture = texture;
 

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Map
 {
     [Serializable]
-    public struct MapLayout
+    public class MapLayout
     {
         public Vector2Int size;
         public Dictionary<Vector2Int, Tile> tiles;
@@ -24,7 +24,9 @@ namespace Map
     public struct Tile
     {
         public TileTypeEnum type;
-        public int variation;
+        public int variety;
+
+        public Tile(TileTypeEnum type, int variety) => (this.type, this.variety) = (type, variety);
     }
 
 }

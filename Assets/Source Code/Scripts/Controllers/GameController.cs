@@ -7,8 +7,6 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    public Vector2Int test;
-
     private static GameController instance = null;
 
     public static GameController Instance
@@ -36,7 +34,14 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        MapLayout teste = new MapLayout(new Vector2Int(10, 10));
+        Dictionary<Vector2Int, Tile> tiles = teste.tiles;
+        tiles.Add(Vector2Int.zero, new Tile(TileTypeEnum.ROAD, (int)RoadVarietyEnum.STRAIGHT_HORIZONTAL));
+        tiles.Add(Vector2Int.right, new Tile(TileTypeEnum.ROAD, (int)RoadVarietyEnum.CORNER_TOP_LEFT));
+        tiles.Add(Vector2Int.one, new Tile(TileTypeEnum.ROAD, (int)RoadVarietyEnum.STRAIGHT_VERTICAL));
+
+
         MapController mc = gameObject.AddComponent<MapController>();
-        mc.GenerateMap(new MapLayout(test));
+        mc.GenerateMap(teste);
     }
 }

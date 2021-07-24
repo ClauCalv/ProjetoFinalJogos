@@ -24,11 +24,11 @@ namespace Map
     }
     public class TileType
     {
-        public static readonly TileType SPAWNPOINT = new TileType(TileTypeEnum.SPAWNPOINT, "/Tiles/Spawnpoint/", null);
-        public static readonly TileType ROAD = new TileType(TileTypeEnum.ROAD, "/Tiles/Road/", typeof(RoadVarietyEnum));
-        public static readonly TileType GROUND = new TileType(TileTypeEnum.GROUND, "/Tiles/Ground/", null);
-        public static readonly TileType TOWER = new TileType(TileTypeEnum.TOWER, "/Tiles/Tower/", typeof(TowerVarietyEnum));
-        public static readonly TileType BARRACKS = new TileType(TileTypeEnum.BARRACKS, "/Tiles/Barracks/", null);
+        public static readonly TileType SPAWNPOINT = new TileType(TileTypeEnum.SPAWNPOINT, "/Tiles/Spawnpoint/", "Spawnpoint", null);
+        public static readonly TileType ROAD = new TileType(TileTypeEnum.ROAD, "/Tiles/Road/", "Road", typeof(RoadVarietyEnum));
+        public static readonly TileType GROUND = new TileType(TileTypeEnum.GROUND, "/Tiles/Ground/", "Ground", null);
+        public static readonly TileType TOWER = new TileType(TileTypeEnum.TOWER, "/Tiles/Tower/", "Tower", typeof(TowerVarietyEnum));
+        public static readonly TileType BARRACKS = new TileType(TileTypeEnum.BARRACKS, "/Tiles/Barracks/", "Barracks", null);
 
         public static Dictionary<TileTypeEnum, TileType> tileTypes = new Dictionary<TileTypeEnum, TileType>()
         {
@@ -41,11 +41,14 @@ namespace Map
 
         public TileTypeEnum TTEnum { get; private set; }
         public string ResourceFolder { get; private set; }
+
+        public string BaseResource { get; private set; }
         public Type VarietyEnumAssociated { get; private set; }
 
-        private TileType(TileTypeEnum TTEnum, string ResourceFolder, Type VarietyEnumAssociated)
+        private TileType(TileTypeEnum TTEnum, string ResourceFolder, string BaseResource, Type VarietyEnumAssociated)
         {
-            (this.TTEnum, this.ResourceFolder, this.VarietyEnumAssociated) = (TTEnum, ResourceFolder, VarietyEnumAssociated);
+            (this.TTEnum, this.ResourceFolder, this.BaseResource, this.VarietyEnumAssociated) 
+                = (TTEnum, ResourceFolder, BaseResource, VarietyEnumAssociated);
         }
         public static TileType fromEnum (TileTypeEnum Enum) => tileTypes[Enum]; 
 

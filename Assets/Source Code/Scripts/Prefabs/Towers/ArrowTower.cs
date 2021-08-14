@@ -41,8 +41,20 @@ public class ArrowTower : MonoBehaviour
 
     private void DoShoot()
     {
-        GameObject target = targets[0]; //Needs target-choosing logic
-        Vector3 destination = target.transform.position;
+        Transform targetTransform = null;
+        float maxDistance = -1;
+
+        foreach(GameObject target in targets)
+        {
+            PathFollower pf = target.GetComponent<PathFollower>();
+            if(pf.distanceTraveled > maxDistance)
+            {
+                targetTransform = target.transform;
+                maxDistance = pf.distanceTraveled;
+            }
+        }
+
+        Vector3 destination = targetTransform.position;
 
         GameObject projectile = GameObject.Instantiate(arrowProjectile);
         MoveStraightProjectile projectileScript = projectile.GetComponent<MoveStraightProjectile>();

@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+  distanceTraveled: 0
 --- !u!114 &4876282648443339759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1a6b46a18af7849bdd5b50b6baeb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 20
+  maxLife: 25
   currLife: 0
 --- !u!33 &1393146594848931566
 MeshFilter:

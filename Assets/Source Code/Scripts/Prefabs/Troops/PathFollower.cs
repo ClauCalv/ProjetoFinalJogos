@@ -10,6 +10,8 @@ public class PathFollower : MonoBehaviour
     Path nextPath;
     Vector3 target;
 
+    public float distanceTraveled = 0;
+
     public void Init(Path spawnpoint)
     {
         nextPath = spawnpoint;
@@ -45,12 +47,15 @@ public class PathFollower : MonoBehaviour
                 }
 
                 movement -= distance;
+                distanceTraveled += distance;
                 start = target;
+
                 target = nextPath.gameObject.transform.position;
                 moveDirection = target - start;
                 distance = moveDirection.magnitude;
             }
 
+            distanceTraveled += distance;
             transform.position = start + moveDirection.normalized * movement + Vector3.up * (y - target.y);
             yield return null;
         }

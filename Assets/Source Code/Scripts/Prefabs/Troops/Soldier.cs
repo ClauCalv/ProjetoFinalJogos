@@ -8,6 +8,7 @@ public class Soldier : MonoBehaviour, Damageable
     public static List<Soldier> soldiers = new List<Soldier>();
 
     MapController mapController;
+    Animator animator;
 
     public float maxLife = 20;
     public float currLife;
@@ -15,6 +16,7 @@ public class Soldier : MonoBehaviour, Damageable
     public void Init(MapController mc)
     {
         this.mapController = mc;
+        this.animator = GetComponentInChildren<Animator>();
         soldiers.Add(this);
     }
 
@@ -31,18 +33,36 @@ public class Soldier : MonoBehaviour, Damageable
 
     public virtual void BarracksReached()
     {
-        OutOfLife();
+        animator.SetBool("Walk", false);
+        StartCoroutine(Death());
     }
 
     protected virtual void OutOfLife()
     {
-        Destroy(gameObject);
+        animator.SetTrigger("Death");
+        StartCoroutine(Death());
+    }
 
+    IEnumerator Death()
+    {
         soldiers.Remove(this);
-        if(soldiers.Count == 0)
+        if (soldiers.Count == 0)
         {
             mapController.NoMoreSoldiers();
         }
+
+        Collider c = GetComponent<Collider>();
+        c.enabled = false;
+
+        PathFollower pf = GetComponent<PathFollower>();
+        pf.stopMoving = true;
+
+        float animTime = animator.GetCurrentAnimatorStateInfo(0).length +
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+
+        yield return new WaitForSeconds(animTime);
+
+        Destroy(gameObject);
     }
 
 }

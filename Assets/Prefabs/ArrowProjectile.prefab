@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8973556969346830657}
   - component: {fileID: -3710777548315370491}
+  - component: {fileID: -725094126769315279}
   - component: {fileID: 762459463232997301}
   - component: {fileID: 3044534323107949510}
   - component: {fileID: 4542987497643870644}
@@ -47,11 +48,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87dc83dd8983754eb3ab4fe32f5f7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 3
+  projectileSpeed: 7.5
+  maxLifetime: 5
   maxDistance: 12
+  distance: 0
   destination: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 0}
-  distance: 0
+--- !u!114 &-725094126769315279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6889264223041925650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783d86645c01dcd43b57e6298f28ec09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  damage: 4
+  damageType: 0
+  destroyOnHit: 1
 --- !u!33 &762459463232997301
 MeshFilter:
   m_ObjectHideFlags: 0

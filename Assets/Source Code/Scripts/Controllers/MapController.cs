@@ -14,6 +14,10 @@ public class MapController : MonoBehaviour
     GridGenerator grid;
     CameraMovement camera;
 
+    Path spawnpoint;
+    IEnumerator<SoldierTypeEnum> soldiers;
+    float spawnInterval = 2;
+
     void Awake()
     {
         gameController = GameController.Instance;
@@ -100,12 +104,67 @@ public class MapController : MonoBehaviour
                     Path path = road.GetComponent<Path>();
                     path.Init(coord, (Direction) varietyEnum);
                     break;
+
+                case TileTypeEnum.SPAWNPOINT:
+                case TileTypeEnum.BARRACKS:
+
+                    GameObject prefab1 = findResource<GameObject>(tileType.ResourceFolder + tileType.BaseResource, false);
+                    GameObject road1 = putPrefabOnGrid(prefab1, coord);
+
+                    //TODO
+                    Texture texture1 = findResource<Texture>(tileType.ResourceFolder + tileType.BaseResource + "_TODO", false);
+                    Renderer renderer1 = road1.GetComponent<Renderer>();
+                    renderer1.material.mainTexture = texture1;
+
+                    Path path1 = road1.GetComponent<Path>();
+                    path1.Init(coord, (Direction) 0b1111);
+
+                    if (tileType.TTEnum == TileTypeEnum.SPAWNPOINT)
+                        this.spawnpoint = path1;
+
+                    break;
+
+
+                case TileTypeEnum.TOWER:
+
+                    TowerVarietyEnum varietyEnum1 = (TowerVarietyEnum)tile.variety;
+                    TowerVariety variety1 = TowerVariety.fromEnum(varietyEnum1);
+
+                    GameObject prefab2 = findResource<GameObject>(tileType.ResourceFolder + variety1.ResourceName, false);
+                    GameObject tower = putPrefabOnGrid(prefab2, coord);
+
+                    break;
+
             }
             
         }
 
         Path.Dijkstra();
 
+    }
+
+    public void SummonSoldiers(IEnumerator<SoldierTypeEnum> soldiers)
+    {
+        this.soldiers = soldiers;
+        StartCoroutine(SummonSoldiers());
+    }
+
+    private IEnumerator SummonSoldiers()
+    {
+        for(int i = 0; i < mapLayout.maxPlayerUnits; i++)
+        {
+            yield return new WaitForSeconds(spawnInterval);
+
+            if (!soldiers.MoveNext()) break;
+
+            SoldierType soldierType = soldiers.Current.Type();
+
+            GameObject prefab = findResource<GameObject>(soldierType.ResourceFolder + soldierType.BaseResource, false);
+            GameObject soldier = putPrefabOnGrid(prefab, spawnpoint.coord);
+
+            PathFollower pf = soldier.GetComponent<PathFollower>();
+            pf.Init(spawnpoint);
+        }
     }
 
     private T findResource<T>(string address, bool takeRandom) where T : Object
@@ -127,7 +186,7 @@ public class MapController : MonoBehaviour
         Vector3 pos = gridSystem.GetPosFromCoords(coord);
 
         GameObject tileObject = GameObject.Instantiate(prefab);
-        tileObject.transform.position = pos;
+        tileObject.transform.position += pos;
         tileObject.transform.parent = grid.gameObject.transform;
 
         return tileObject;

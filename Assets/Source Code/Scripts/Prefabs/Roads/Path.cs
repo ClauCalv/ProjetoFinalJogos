@@ -22,12 +22,14 @@ public class Path : MonoBehaviour
         paths.Add(coord, this);
 
         this.connections = connections;
+        neighbours = new List<Neighbour>(4);
 
         foreach (Direction dir in Enum.GetValues(typeof(Direction)))
         {
             if (connections.HasFlag(dir))
             {
-                Path neighbour = paths[coord + dir.Vector()];
+                Path neighbour = null;
+                paths.TryGetValue(coord + dir.Vector(), out neighbour);
                 if (neighbour != null){
                     neighbours.Add(new Neighbour(neighbour, dir));
                     neighbour.neighbours.Add(new Neighbour(this, dir.Opposite()));
@@ -41,6 +43,22 @@ public class Path : MonoBehaviour
         paths.Remove(coord);
 
         //TODO neighbour-removing considerando o caso que todos são destruídos de uma vez e é desnecessário.
+    }
+
+    public Path smallerNeighbour()
+    {
+        Path minNeighbour = null;
+        int minDistance = int.MaxValue;
+        foreach(Neighbour n in neighbours)
+        {
+            if(n.path.distance < minDistance)
+            {
+                minDistance = n.path.distance;
+                minNeighbour = n.path;
+            }
+        }
+
+        return minNeighbour;
     }
 
     private bool DijkstraInit()

@@ -28,13 +28,11 @@ public class ArrowTower : MonoBehaviour
             if (targets.Count == 0)
             {
                 currTime = firingInterval;
-                Debug.Log("Nothing to shoot at!");
             }
             else
             {
                 currTime -= firingInterval;
                 DoShoot();
-                Debug.Log("Tower firing!");
             }
         }
         timeSincelastShot = currTime;
@@ -47,7 +45,7 @@ public class ArrowTower : MonoBehaviour
         Vector3 destination = target.transform.position;
 
         GameObject projectile = GameObject.Instantiate(arrowProjectile);
-        BaseProjectile projectileScript = projectile.GetComponent<BaseProjectile>();
+        MoveStraightProjectile projectileScript = projectile.GetComponent<MoveStraightProjectile>();
         projectile.transform.position = transform.position;
         projectileScript.destination = destination;
     }

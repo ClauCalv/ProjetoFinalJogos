@@ -24,11 +24,11 @@ namespace Map
     }
     public class TileType
     {
-        public static readonly TileType SPAWNPOINT = new TileType(TileTypeEnum.SPAWNPOINT, "/Tiles/Spawnpoint/", "Spawnpoint", null);
-        public static readonly TileType ROAD = new TileType(TileTypeEnum.ROAD, "/Tiles/Road/", "Road", typeof(RoadVarietyEnum));
-        public static readonly TileType GROUND = new TileType(TileTypeEnum.GROUND, "/Tiles/Ground/", "Ground", null);
-        public static readonly TileType TOWER = new TileType(TileTypeEnum.TOWER, "/Tiles/Tower/", "Tower", typeof(TowerVarietyEnum));
-        public static readonly TileType BARRACKS = new TileType(TileTypeEnum.BARRACKS, "/Tiles/Barracks/", "Barracks", null);
+        public static readonly TileType SPAWNPOINT = new TileType(TileTypeEnum.SPAWNPOINT, "Tiles/Spawnpoint/", "Spawnpoint", null);
+        public static readonly TileType ROAD = new TileType(TileTypeEnum.ROAD, "Tiles/Road/", "Road", typeof(RoadVarietyEnum));
+        public static readonly TileType GROUND = new TileType(TileTypeEnum.GROUND, "Tiles/Ground/", "Ground", null);
+        public static readonly TileType TOWER = new TileType(TileTypeEnum.TOWER, "Tiles/Tower/", "Tower", typeof(TowerVarietyEnum));
+        public static readonly TileType BARRACKS = new TileType(TileTypeEnum.BARRACKS, "Tiles/Barracks/", "Barracks", null);
 
         public static Dictionary<TileTypeEnum, TileType> tileTypes = new Dictionary<TileTypeEnum, TileType>()
         {
@@ -149,7 +149,7 @@ namespace Map
     }
     public class TowerVariety : TileVariety<TowerVarietyEnum>
     {
-        public static readonly TowerVariety ARROW_TOWER = new TowerVariety(TowerVarietyEnum.ARROW_TOWER, "ARROW_TOWER");
+        public static readonly TowerVariety ARROW_TOWER = new TowerVariety(TowerVarietyEnum.ARROW_TOWER, "Arrow Tower");
         public static readonly TowerVariety FLAME_TOWER = new TowerVariety(TowerVarietyEnum.FLAME_TOWER, "FLAME_TOWER");
         public static readonly TowerVariety TROOPS_TOWER = new TowerVariety(TowerVarietyEnum.TROOPS_TOWER, "TROOPS_TOWER");
 

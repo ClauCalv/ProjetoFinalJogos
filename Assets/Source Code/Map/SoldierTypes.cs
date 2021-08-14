@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public enum SoldierTypeEnum
 {
-    BASIC = 1
+    BASIC = 1,
+    TOUGH = 2
 }
 
 public static class SoldierTypeEnumExtension
@@ -15,10 +16,12 @@ public static class SoldierTypeEnumExtension
 public class SoldierType
 {
     public static readonly SoldierType BASIC = new SoldierType(SoldierTypeEnum.BASIC, "Troops/", "BasicSoldier");
+    public static readonly SoldierType TOUGH = new SoldierType(SoldierTypeEnum.BASIC, "Troops/", "ToughSoldier");
 
     public static Dictionary<SoldierTypeEnum, SoldierType> tileTypes = new Dictionary<SoldierTypeEnum, SoldierType>()
     {
-        { SoldierTypeEnum.BASIC, BASIC }
+        { SoldierTypeEnum.BASIC, BASIC },
+        { SoldierTypeEnum.TOUGH, TOUGH }
     };
 
     public SoldierTypeEnum TTEnum { get; private set; }

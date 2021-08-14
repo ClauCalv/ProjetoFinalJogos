@@ -8,6 +8,9 @@ public class GameController : MonoBehaviour
 {
 
     private static GameController instance = null;
+    public bool spawned = false;
+
+    MapController mapController;
 
     public static GameController Instance
     {
@@ -50,14 +53,44 @@ public class GameController : MonoBehaviour
         tiles.Add(new Vector2Int(3, 1), new Tile(TileTypeEnum.TOWER, (int)TowerVarietyEnum.ARROW_TOWER));
 
         MapController mc = gameObject.AddComponent<MapController>();
+        this.mapController = mc;
         mc.GenerateMap(teste);
-
-        mc.SummonSoldiers(testeSoldiers());
     }
 
-    static IEnumerator<SoldierTypeEnum> testeSoldiers()
+    void Update()
     {
-        while(true)
+        if (!spawned)
+        {
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                mapController.SummonSoldiers(testeSoldiers1());
+                spawned = true;
+            }
+            else if (Input.GetKey(KeyCode.Alpha2))
+            {
+                mapController.SummonSoldiers(testeSoldiers2());
+                spawned = true;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Comma))
+            Time.timeScale -= 0.5f;
+
+        if (Input.GetKeyDown(KeyCode.Period))
+            Time.timeScale += 0.5f;
+    }
+
+    static IEnumerator<SoldierTypeEnum> testeSoldiers1()
+    {
+        while (true)
+            yield return SoldierTypeEnum.BASIC;
+    }
+
+    static IEnumerator<SoldierTypeEnum> testeSoldiers2()
+    {
+        yield return SoldierTypeEnum.TOUGH;
+        while (true)
             yield return SoldierTypeEnum.BASIC;
     }
 }
+

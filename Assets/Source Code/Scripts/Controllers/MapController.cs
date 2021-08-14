@@ -137,12 +137,14 @@ public class MapController : MonoBehaviour
         if (doneSpawning)
         {
             //TODO LOSE GAME
+            Debug.Log("Game lost");
         }
     }
 
     public void BarracksDestroyed()
     {
         //TODO WIN GAME
+        Debug.Log("Game won");
     }
 
     private T findResource<T>(string address, bool takeRandom) where T : Object

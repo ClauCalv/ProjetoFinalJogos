@@ -22,7 +22,7 @@ public class Soldier : MonoBehaviour, Damageable
     {
         currLife = maxLife;
     }
-    public void TakeDamage(float damage, DamageType damageType)
+    public virtual void TakeDamage(float damage, DamageType damageType)
     {
         currLife -= damage;
         if (currLife <= 0)

@@ -11,6 +11,9 @@ public class PathFollower : MonoBehaviour
     Vector3 target;
 
     public float distanceTraveled = 0;
+    public bool stopMoving = false;
+
+    Animator animator;
 
     public void Init(Path spawnpoint)
     {
@@ -20,6 +23,7 @@ public class PathFollower : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         StartCoroutine(MoveAlongPath());
     }
 
@@ -27,6 +31,9 @@ public class PathFollower : MonoBehaviour
     {
         while (true)
         {
+            if (stopMoving)
+                yield break;
+
             Vector3 start = transform.position;
             float y = start.y;
             start += Vector3.down * (y - target.y);
@@ -35,7 +42,7 @@ public class PathFollower : MonoBehaviour
 
             float movement = moveSpeed * Time.deltaTime;
 
-            while(movement >= distance) // provavelmente o laÁo acontecer· de 0 a 1 vezes, a n„o ser que o lag seja muuito grande
+            while(movement >= distance) // provavelmente o la√ßo acontecer√° de 0 a 1 vezes, a n√£o ser que o lag seja muuito grande
             {
                 bool finished = nextPath.distance == 0;
                 nextPath = nextPath.smallerNeighbour();
@@ -43,6 +50,9 @@ public class PathFollower : MonoBehaviour
                 if(nextPath == null | finished)
                 {
                     transform.position = target + Vector3.up * (y - target.y);
+
+                    animator.SetBool("Walk", false);
+
                     yield break;
                 }
 
@@ -53,10 +63,16 @@ public class PathFollower : MonoBehaviour
                 target = nextPath.gameObject.transform.position;
                 moveDirection = target - start;
                 distance = moveDirection.magnitude;
+
             }
 
             distanceTraveled += distance;
             transform.position = start + moveDirection.normalized * movement + Vector3.up * (y - target.y);
+
+            transform.rotation = Quaternion.LookRotation(moveDirection);
+
+            animator.SetBool("Walk", true);
+
             yield return null;
         }
     }

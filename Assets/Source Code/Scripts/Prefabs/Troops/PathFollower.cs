@@ -42,7 +42,7 @@ public class PathFollower : MonoBehaviour
 
             float movement = moveSpeed * Time.deltaTime;
 
-            while(movement >= distance) // provavelmente o la�o acontecer� de 0 a 1 vezes, a n�o ser que o lag seja muuito grande
+            while(movement >= distance) // provavelmente o laço acontecerá de 0 a 1 vezes, a não ser que o lag seja muuito grande
             {
                 bool finished = nextPath.distance == 0;
                 nextPath = nextPath.smallerNeighbour();
@@ -64,7 +64,6 @@ public class PathFollower : MonoBehaviour
                 moveDirection = target - start;
                 distance = moveDirection.magnitude;
 
-                
             }
 
             distanceTraveled += distance;

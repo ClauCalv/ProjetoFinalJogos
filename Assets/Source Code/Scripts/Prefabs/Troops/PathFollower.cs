@@ -63,12 +63,14 @@ public class PathFollower : MonoBehaviour
                 target = nextPath.gameObject.transform.position;
                 moveDirection = target - start;
                 distance = moveDirection.magnitude;
+
+                
             }
 
             distanceTraveled += distance;
             transform.position = start + moveDirection.normalized * movement + Vector3.up * (y - target.y);
 
-            transform.rotation.SetLookRotation(moveDirection);
+            transform.rotation = Quaternion.LookRotation(moveDirection);
 
             animator.SetBool("Walk", true);
 
